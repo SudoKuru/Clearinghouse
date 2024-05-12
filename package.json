@@ -9,7 +9,7 @@
   "license": "",
   "dependencies": {
     "papaparse": "^5.4.1",
-    "sudokuru": "^3.0.0",
+    "sudokuru": "^3.1.0",
     "@types/node": "^20.10.4"
   }
 }
