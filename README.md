@@ -17,7 +17,8 @@
 # Start Postgres DB, create Puzzles table to store puzzle data, and run ingest pipeline to load puzzle data
 # GENERATE_TIME_LIMIT is the number of seconds the puzzle generation jobs can run before they wind down, defaults to 60
 # GENERATE_THREADS is the number of threads used during puzzle generation (in addition to main thread), defaults to 1
-GENERATE_TIME_LIMIT=60 GENERATE_THREADS=1 bash start.sh
+# PUZZLE_FILE is the file with one sudoku puzzle string per line to ingest, defaults to puzzles1.txt
+GENERATE_TIME_LIMIT=60 GENERATE_THREADS=1 PUZZLE_FILE=puzzles1.txt bash start.sh
 
 # Queries the DB for the number of puzzles requested with the desired difficulty values and then runs each
 # line through the export.ts script to process them into the desired compact Puzzle format used by Sudokuru Frontend local database

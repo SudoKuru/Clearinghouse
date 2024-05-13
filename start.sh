@@ -9,6 +9,9 @@ fi
 if [[ -z "$GENERATE_THREADS" ]]; then
 	GENERATE_THREADS=1
 fi
+if [[ -z "$PUZZLE_FILE" ]]; then
+	PUZZLE_FILE=puzzles1.txt
+fi
 
 if docker run --name sudoku-postgres -e POSTGRES_PASSWORD=sudokuru -d -p 5432:5432 postgres ; then
 	print_green "Postgres Docker started successfully in $SECONDS seconds."
@@ -36,11 +39,11 @@ cat ./puzzles.sql | docker exec -i sudoku-postgres psql -U postgres -d postgres 
 touch inserts.sql
 sql_query="SELECT * FROM Puzzles WHERE puzzle = '%s';"
 let thread=0
-total_puzzles=$(grep -c . "puzzles.txt")
+total_puzzles=$(grep -c . $PUZZLE_FILE)
 solved_puzzles=$(grep -c . "puzzles.sql")
 total_steps=$(echo $total_puzzles-$solved_puzzles | bc)
 current_step=0
-for line in $(cat "puzzles.txt"); do
+for line in $(cat $PUZZLE_FILE); do
 	if [[ $SECONDS -gt $GENERATE_TIME_LIMIT ]]; then
     		break
   	fi
